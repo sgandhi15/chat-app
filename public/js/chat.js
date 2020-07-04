@@ -13,7 +13,7 @@ const autoScroll = () => {
 
     const scrollOffset = document.querySelector('#messages').scrollTop + visibleHeight
 
-    if(containerHeight - newMessageheight <= scrollOffset) {
+    if (containerHeight - newMessageheight <= scrollOffset) {
         document.querySelector('#messages').scrollTop = document.querySelector('#messages').scrollHeight
     }
 }
@@ -22,12 +22,12 @@ const { username, room } = Qs.parse(location.search, { ignoreQueryPrefix: true }
 
 socket.on('message', (message) => {
     console.log(message)
-    const html = Mustache.render(document.querySelector('#message-template').innerHTML, { 
+    const html = Mustache.render(document.querySelector('#message-template').innerHTML, {
         username: message.username,
         message: message.text,
         createdAt: moment(message.createdAt).format('hh:mm A')
     })
-    document.querySelector('#messages').insertAdjacentHTML('beforeend',html)
+    document.querySelector('#messages').insertAdjacentHTML('beforeend', html)
     autoScroll()
 })
 
@@ -38,7 +38,7 @@ socket.on('locationMessage', (url) => {
         url: url.url,
         createdAt: moment(url.createdAt).format('hh:mm A')
     })
-    document.querySelector('#messages').insertAdjacentHTML('beforeend',html)
+    document.querySelector('#messages').insertAdjacentHTML('beforeend', html)
     autoScroll()
 })
 
@@ -68,7 +68,7 @@ document.querySelector('#send-location').addEventListener('click', () => {
     if (!navigator.geolocation) {
         return alert('Geolocation is not supported by your browser')
     }
-    
+
     document.querySelector('#send-location').setAttribute('disabled', 'disabled')
 
     navigator.geolocation.getCurrentPosition((position) => {
